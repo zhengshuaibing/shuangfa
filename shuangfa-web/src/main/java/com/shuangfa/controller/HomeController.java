@@ -2,9 +2,9 @@ package com.shuangfa.controller;
 
 import com.shuangfa.domain.production.SearchVO;
 import com.shuangfa.service.production.ProductionService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -53,10 +53,10 @@ public class HomeController {
     public ModelAndView login(HttpServletRequest req, HttpServletResponse resp) throws IOException{
         ModelAndView modelAndView = new ModelAndView();
         String username = req.getParameter("username");
-        String password = req.getParameter("password");
+//        String password = req.getParameter("password");
         HttpSession session = req.getSession();
         String user = (String) session.getAttribute("user");
-        if (!StringUtils.isEmpty(user)){
+        if (StringUtils.isEmpty(user)){
             if ("admin".equals(username)) {
                 modelAndView.setViewName("/home/index");
             }else{
