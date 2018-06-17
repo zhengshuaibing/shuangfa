@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shuangfa.mapper.production.ProductionMapper" >
+    <sql id="Base_Column_List" >
+        id, cid, pname, pimgsize, pimg, price, uid
+    </sql>
+    <select id="getAll" resultType="com.shuangfa.domain.production.Production">
+        select
+          <include refid="Base_Column_List" />
+        from production
+    </select>
+    <select id="search" resultType="com.shuangfa.domain.production.Production">
+        select
+          <include refid="Base_Column_List" />
+        from production
+        <where>
+            <if test="cid != null" >
+                and cid = #{cid}
+            </if>
+            <if test="pnamedesc != null" >
+                and pname like concat('%', #{pnamedesc}, '%')
+            </if>
+        </where>
+        limit #{begin}, #{offset}
+
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select
+          count(id)
+        from production
+        <where>
+            <if test="cid != null" >
+                and cid = #{cid}
+            </if>
+            <if test="pnamedesc != null" >
+                and pname like concat('%', #{pnamedesc}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>
